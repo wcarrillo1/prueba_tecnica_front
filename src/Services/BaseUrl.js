@@ -1,0 +1,1 @@
+export const RouteBase = 'https://localhost:44377/api'

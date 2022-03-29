@@ -26,7 +26,29 @@ import { Alert } from 'reactstrap'
     )
 }
 
+export const EstadoVehiculo = ({row}) => {
+  const Variante = [
+      'danger',
+      'success'
+    
+      
+
+  ]
+
+  return (
+      <Alert color={Variante[row.estado]} className="w-100 text-center alert-xs font-weight-bolder" style={{ padding: '5px' }}>
+  
+          { (row.estado === 0) && 'Desactivado' }
+          { (row.estado === 1) && 'Disponible'}
+          
+      </Alert>
+  )
+}
+
+
+
   export default ( 
       CustomText,
-      EstadoLista
+      EstadoLista,
+      EstadoVehiculo
   )

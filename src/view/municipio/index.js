@@ -6,7 +6,7 @@ import Formulario from './form'
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
-const Departamentos = () => {
+const Municipio = () => {
 const   [allData, setAllData] = useState([]),
         [oneData, setOneData] = useState([]),
         [departamentos, setDepartamento] = useState([]),
@@ -18,7 +18,8 @@ const   [allData, setAllData] = useState([]),
                  setModal(true)
                  setOneData(null)
                 } 
-            if(data === 0){ setModal(false) }
+            if(data === 0){ setModal(false)
+             }
             
         },
         datos = async () =>  {
@@ -103,4 +104,4 @@ return(
     )
 }
 
-export default Departamentos
+export default Municipio

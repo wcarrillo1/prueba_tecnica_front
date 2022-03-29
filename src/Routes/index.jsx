@@ -6,6 +6,7 @@ import Municipio from '../view/municipio/index'
 import TipoPersona from '../view/TipoPersona/index'
 import TipoCarga from '../view/TipoCarga/index'
 import Persona from '../view/persona/index'
+import Vehiculo from '../view/vehiculo/index'
 
 const Index = () => {
     return (
@@ -17,6 +18,7 @@ const Index = () => {
         <Route path="/tipoPersona" element={<TipoPersona/>}/>
         <Route path="/tipoCarga" element={<TipoCarga/>}/>
         <Route path="/persona" element={<Persona/>}/>
+        <Route path="/vehiculo" element={<Vehiculo/>}/>
         </Routes>
         
     </Router>

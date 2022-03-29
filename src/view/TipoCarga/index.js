@@ -6,7 +6,7 @@ import Formulario from './form'
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
-const Departamentos = () => {
+const TipoCarga = () => {
 const   [allData, setAllData] = useState([]),
         [oneData, setOneData] = useState([]),
         [modal, setModal] = useState(false),
@@ -96,4 +96,4 @@ return(
     )
 }
 
-export default Departamentos
+export default TipoCarga

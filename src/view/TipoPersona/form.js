@@ -75,9 +75,7 @@ const Formulario = ({StoreUpdate, modal, toggleModal, oneData, wared}) => {
             <Button variant="danger" onClick={()=>toggleModal(0)}>
               Salir
             </Button>
-            <Button variant="success" type="submit">
-              Guardar
-            </Button>
+            {oneData ? <Button variant="warning" type="submit">Actualizar</Button> : <Button variant="success" type="submit">Guardar</Button>   }
           </Modal.Footer>
            </Form>
         </Modal>

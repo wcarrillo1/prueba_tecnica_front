@@ -21,8 +21,7 @@ const Formulario = ({StoreUpdate, modal, toggleModal, oneData, departamentos}) =
 
         setData = async () => {
           await setValue('nombre', oneData.nombre)
-         
-       
+         {oneData.id && await setValue('departamento', {label: oneData.departamento, value: oneData.idDepartamento})} 
       }
       useEffect(() => {
         async function fetchMyAPI() {
@@ -52,7 +51,7 @@ const Formulario = ({StoreUpdate, modal, toggleModal, oneData, departamentos}) =
       
         <Modal size="md" show={modal} onHide={()=>toggleModal(0)}>
           <Modal.Header closeButton>
-            <Modal.Title className="text-center">Nuevo Departamento</Modal.Title>
+            <Modal.Title className="text-center">Nuevo Municipio</Modal.Title>
           </Modal.Header>
            <Form onSubmit={handleSubmit(onSubmit)}>
           <Modal.Body>
@@ -68,7 +67,7 @@ const Formulario = ({StoreUpdate, modal, toggleModal, oneData, departamentos}) =
                         {...field}
                         isClearable
                         isSearchable
-                        defaultValue={null}
+                        
                         options={departamentos}
                         placeholder={"Seleccionar Departamento"}
                         noOptionsMessage={()=>'sin resultados'}
@@ -102,9 +101,7 @@ const Formulario = ({StoreUpdate, modal, toggleModal, oneData, departamentos}) =
             <Button variant="danger" onClick={()=>toggleModal(0)}>
               Salir
             </Button>
-            <Button variant="success" type="submit">
-              Guardar
-            </Button>
+            {oneData ? <Button variant="warning" type="submit">Actualizar</Button> : <Button variant="success" type="submit">Guardar</Button>   }
           </Modal.Footer>
            </Form>
         </Modal>

@@ -6,9 +6,10 @@ import Formulario from './form'
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
-const Departamentos = () => {
+const Persona = () => {
 const   [allData, setAllData] = useState([]),
         [oneData, setOneData] = useState([]),
+        [departamentos, setDepartamentos] = useState([]),
         [municipios, setMunicipio] = useState([]),
         [tiposPersona, setTipoPersona] = useState([]),
         [modal, setModal] = useState(false),
@@ -26,8 +27,12 @@ const   [allData, setAllData] = useState([]),
             const response = await GetRout(`persona/all`)
             setAllData((response.length) ? response : [])
         },
-        allMunicipio = async () =>  {
+        allDepartamento = async () =>  {
             const response = await GetRout(`departamento/label`)
+            setDepartamentos((response.length) ? response : [])
+        },
+        allMunicipio = async (data) =>  {
+            const response = await PostRoute(`municipio/oneMun`,{ id : data.value})
             setMunicipio((response.length) ? response : [])
         },
         alltipos = async () =>  {
@@ -59,7 +64,7 @@ const   [allData, setAllData] = useState([]),
 
         useEffect(() => {
             datos()
-            allMunicipio()
+            allDepartamento()
             alltipos()
         },[])
 
@@ -84,8 +89,10 @@ return(
                         modal={modal}
                         toggleModal={toggleModal}
                         oneData={oneData}
+                        departamentos={departamentos}
                         municipios={municipios}
                         tiposPersona={tiposPersona}
+                        allMunicipio={allMunicipio}
                         />
                   </Nav.Item>
               </Nav>
@@ -110,4 +117,4 @@ return(
     )
 }
 
-export default Departamentos
+export default Persona

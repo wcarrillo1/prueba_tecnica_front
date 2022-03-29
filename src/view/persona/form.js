@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import Select from 'react-select'
 
-const Formulario = ({StoreUpdate, modal, toggleModal, oneData, municipios, tiposPersona}) => {
+const Formulario = ({StoreUpdate, modal, toggleModal, oneData,departamentos, municipios, tiposPersona, allMunicipio}) => {
     
-    const { register, handleSubmit, reset, setValue, control } = useForm(),
+    const { register, handleSubmit, reset, setValue, control, watch } = useForm(),
 
         onSubmit =  (data) =>{
           const json = {
@@ -27,8 +27,19 @@ const Formulario = ({StoreUpdate, modal, toggleModal, oneData, municipios, tipos
           await setValue('apellidos', oneData.apellidos)
           await setValue('direccion', oneData.direccion)
           await setValue('nit', oneData.nit)
+          {oneData.id && await setValue('departamento', {label: oneData.departamento, value: oneData.idDepartamento})} 
+          {oneData.id && await setValue('municipio', {label: oneData.municipio, value: oneData.idMunicipio})}
+          {oneData.id && await setValue('tipo_persona', {label: oneData.tpNombre, value: oneData.idTipoPersona})}
        
-      }
+      },
+
+      Depto = watch('departamento')
+
+      useEffect(() => {
+        console.log(Depto)
+        allMunicipio(Depto)
+      },[Depto])
+
       useEffect(() => {
         async function fetchMyAPI() {
           reset()
@@ -91,6 +102,30 @@ const Formulario = ({StoreUpdate, modal, toggleModal, oneData, municipios, tipos
           <Row>
           <Col>
            <Form.Group className="mb-3">
+           <Form.Label>Departamento</Form.Label>
+           <Controller 
+                  name="departamento"
+                  control={control}
+                  render={({ field }) =>{
+                    return(
+                      <Select 
+                        {...field}
+                        isClearable
+                        isSearchable
+                        defaultValue={null}
+                        options={departamentos}
+                        placeholder={"Seleccionar Departamento"}
+                        noOptionsMessage={()=>'sin resultados'}
+                      />  
+                      )
+                    }
+                  }
+                  rules={{ required: "Este campo es requerido" }}   
+                /> 
+           </Form.Group>
+           </Col>
+          <Col>
+           <Form.Group className="mb-3">
            <Form.Label>Municipio</Form.Label>
            <Controller 
                   name="municipio"
@@ -113,6 +148,8 @@ const Formulario = ({StoreUpdate, modal, toggleModal, oneData, municipios, tipos
                 /> 
            </Form.Group>
            </Col>
+           </Row>
+           <Row>
            <Col>
            <Form.Group className="mb-3">
             <Form.Label>Direccion</Form.Label>
@@ -171,9 +208,7 @@ const Formulario = ({StoreUpdate, modal, toggleModal, oneData, municipios, tipos
             <Button variant="danger" onClick={()=>toggleModal(0)}>
               Salir
             </Button>
-            <Button variant="success" type="submit">
-              Guardar
-            </Button>
+            {oneData ? <Button variant="warning" type="submit">Actualizar</Button> : <Button variant="success" type="submit">Guardar</Button>   }
           </Modal.Footer>
            </Form>
         </Modal>
